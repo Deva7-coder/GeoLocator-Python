@@ -1,0 +1,18 @@
+import geocoder
+from geopy.geocoders import Nominatim
+
+def get_location():
+    # Get IP-based location
+    g = geocoder.ip('me')
+    ip_location = g.latlng
+
+    # Get detailed address using GPS coordinates
+    if ip_location:
+        geolocator = Nominatim(user_agent="geo_locator")
+        location = geolocator.reverse(ip_location, language="en")
+        return f"Your location: {location.address}"
+    else:
+        return "Could not retrieve location."
+
+if _name_ == "_main_":
+    print(get_location())
